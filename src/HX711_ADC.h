@@ -22,10 +22,6 @@ Note: HX711_ADC configuration values has been moved to file config.h
 	#error "number of SAMPLES not valid!"
 #endif
 
-#if (SAMPLES  == 1) & ((IGN_HIGH_SAMPLE  != 0) | (IGN_LOW_SAMPLE  != 0))
-	#error "number of SAMPLES not valid!"
-#endif
-
 #if 		(SAMPLES == 1)
 #define 	DIVB 0
 #elif 		(SAMPLES == 2)
