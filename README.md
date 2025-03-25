@@ -35,7 +35,8 @@ HX711_ADC Library Documentation
 Initialization:
  begin(): Initializes the communication with the HX711 and sets the gain to 128 (default).
  begin(uint8_t gain): Initializes the communication with the HX711 and sets the gain (32, 64, or 128).
- Tare (Zero Point Calibration):
+
+Tare (Zero Point Calibration):
  tare(): Performs tare operation (blocking, waits until finished).
  tareNoDelay(): Initiates tare operation (non-blocking, continues in background).
  getTareStatus(): Returns true if the tare operation is complete.

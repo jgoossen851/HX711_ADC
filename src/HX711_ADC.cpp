@@ -177,7 +177,7 @@ int HX711_ADC::startMultiple(unsigned long t, bool dotare)
 	return startStatus;
 }
 
-//zero the scale, wait for tare to finnish (blocking)
+//zero the scale, wait for tare to finish (blocking)
 void HX711_ADC::tare() 
 {
 	uint8_t rdy = 0;
@@ -464,7 +464,7 @@ long HX711_ADC::getSettlingTime()
 	return st;
 }
 
-//overide the number of samples in use
+//override the number of samples in use
 //value is rounded down to the nearest valid value
 void HX711_ADC::setSamplesInUse(int samples)
 {

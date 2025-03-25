@@ -23,8 +23,8 @@ const int HX711_sck_2 = 7; //mcu > HX711 no 2 sck pin
 HX711_ADC LoadCell_1(HX711_dout_1, HX711_sck_1); //HX711 1
 HX711_ADC LoadCell_2(HX711_dout_2, HX711_sck_2); //HX711 2
 
-const int calVal_eepromAdress_1 = 0; // eeprom adress for calibration value load cell 1 (4 bytes)
-const int calVal_eepromAdress_2 = 4; // eeprom adress for calibration value load cell 2 (4 bytes)
+const int calVal_eepromAdress_1 = 0; // eeprom address for calibration value load cell 1 (4 bytes)
+const int calVal_eepromAdress_2 = 4; // eeprom address for calibration value load cell 2 (4 bytes)
 unsigned long t = 0;
 
 void setup() {
@@ -47,11 +47,11 @@ void setup() {
   LoadCell_2.begin();
   //LoadCell_1.setReverseOutput();
   //LoadCell_2.setReverseOutput();
-  unsigned long stabilizingtime = 2000; // tare preciscion can be improved by adding a few seconds of stabilizing time
+  unsigned long stabilizingtime = 2000; // tare precision can be improved by adding a few seconds of stabilizing time
   boolean _tare = true; //set this to false if you don't want tare to be performed in the next step
   byte loadcell_1_rdy = 0;
   byte loadcell_2_rdy = 0;
-  while ((loadcell_1_rdy + loadcell_2_rdy) < 2) { //run startup, stabilization and tare, both modules simultaniously
+  while ((loadcell_1_rdy + loadcell_2_rdy) < 2) { //run startup, stabilization and tare, both modules simultaneously
     if (!loadcell_1_rdy) loadcell_1_rdy = LoadCell_1.startMultiple(stabilizingtime, _tare);
     if (!loadcell_2_rdy) loadcell_2_rdy = LoadCell_2.startMultiple(stabilizingtime, _tare);
   }

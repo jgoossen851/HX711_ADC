@@ -56,9 +56,9 @@ class HX711_ADC
 		void begin(uint8_t gain);					//set pinMode, HX711 selected gain and power up the HX711
 		void start(unsigned long t); 					//start HX711 and do tare 
 		void start(unsigned long t, bool dotare);		//start HX711, do tare if selected
-		int startMultiple(unsigned long t); 			//start and do tare, multiple HX711 simultaniously
-		int startMultiple(unsigned long t, bool dotare);	//start and do tare if selected, multiple HX711 simultaniously
-		void tare(); 								//zero the scale, wait for tare to finnish (blocking)
+		int startMultiple(unsigned long t); 			//start and do tare, multiple HX711 simultaneously
+		int startMultiple(unsigned long t, bool dotare);	//start and do tare if selected, multiple HX711 simultaneously
+		void tare(); 								//zero the scale, wait for tare to finish (blocking)
 		void tareNoDelay(); 						//zero the scale, initiate the tare operation to run in the background (non-blocking)
 		bool getTareStatus();						//returns 'true' if tareNoDelay() operation is complete
 		void setCalFactor(float cal); 				//set new calibration factor, raw data is divided by this value to convert to readable data
@@ -78,7 +78,7 @@ class HX711_ADC
 		uint8_t update(); 							//if conversion is ready; read out 24 bit data and add to dataset
 		bool dataWaitingAsync(); 					//checks if data is available to read (no conversion yet)
 		bool updateAsync(); 						//read available data and add to dataset 
-		void setSamplesInUse(int samples);			//overide number of samples in use
+		void setSamplesInUse(int samples);			//override number of samples in use
 		int getSamplesInUse();						//returns current number of samples in use
 		void resetSamplesIndex();					//resets index for dataset
 		bool refreshDataSet();						//Fill the whole dataset up with new conversions, i.e. after a reset/restart (this function is blocking once started)

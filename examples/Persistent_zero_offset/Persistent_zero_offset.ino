@@ -10,7 +10,7 @@
    Settling time (number of samples) and data filtering can be adjusted in the config.h file
    For calibration and storing the calibration value in eeprom, see example file "Calibration.ino"
 
-   The update() function checks for new data and starts the next conversion. In order to acheive maximum effective
+   The update() function checks for new data and starts the next conversion. In order to achieve maximum effective
    sample rate, update() should be called at least as often as the HX711 sample rate; >10Hz@10SPS, >80Hz@80SPS.
    If you have other time consuming code running (i.e. a graphical LCD), consider calling update() from an interrupt routine,
    see example file "Read_1x_load_cell_interrupt_driven.ino".
@@ -55,9 +55,9 @@ void setup() {
   long tare_offset = 0;
   EEPROM.get(tareOffsetVal_eepromAdress, tare_offset);
   LoadCell.setTareOffset(tare_offset);
-  boolean _tare = false; //set this to false as the value has been resored from eeprom
+  boolean _tare = false; //set this to false as the value has been restored from eeprom
 
-  unsigned long stabilizingtime = 2000; // preciscion right after power-up can be improved by adding a few seconds of stabilizing time
+  unsigned long stabilizingtime = 2000; // precision right after power-up can be improved by adding a few seconds of stabilizing time
   LoadCell.start(stabilizingtime, _tare);
   if (LoadCell.getTareTimeoutFlag()) {
     Serial.println("Timeout, check MCU>HX711 wiring and pin designations");

@@ -9,11 +9,11 @@
    Settling time (number of samples) and data filtering can be adjusted in the config.h file
    For calibration and storing the calibration value in eeprom, see example file "Calibration.ino"
 
-   The update() function checks for new data and starts the next conversion. In order to acheive maximum effective
+   The update() function checks for new data and starts the next conversion. In order to achieve maximum effective
    sample rate, update() should be called at least as often as the HX711 sample rate; >10Hz@10SPS, >80Hz@80SPS.
 
    This example shows how call the update() function from an ISR with interrupt on the dout pin.
-   Try this if you experince longer settling time due to time consuming code in the loop(),
+   Try this if you experience longer settling time due to time consuming code in the loop(),
    i.e. if you are refreshing an graphical LCD, etc.
    The pin used for dout must be external interrupt capable.
 */
@@ -47,7 +47,7 @@ void setup() {
 
   LoadCell.begin();
   //LoadCell.setReverseOutput();
-  unsigned long stabilizingtime = 2000; // tare preciscion can be improved by adding a few seconds of stabilizing time
+  unsigned long stabilizingtime = 2000; // tare precision can be improved by adding a few seconds of stabilizing time
   boolean _tare = true; //set this to false if you don't want tare to be performed in the next step
   LoadCell.start(stabilizingtime, _tare);
   if (LoadCell.getTareTimeoutFlag()) {

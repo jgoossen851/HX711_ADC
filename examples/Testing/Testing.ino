@@ -10,7 +10,7 @@
    Settling time (number of samples) and data filtering can be adjusted in the config.h file
    For calibration and storing the calibration value in eeprom, see example file "Calibration.ino"
 
-   The update() function checks for new data and starts the next conversion. In order to acheive maximum effective
+   The update() function checks for new data and starts the next conversion. In order to achieve maximum effective
    sample rate, update() should be called at least as often as the HX711 sample rate; >10Hz@10SPS, >80Hz@80SPS.
    If you have other time consuming code running (i.e. a graphical LCD), consider calling update() from an interrupt routine,
    see example file "Read_1x_load_cell_interrupt_driven.ino".
@@ -47,7 +47,7 @@ void setup() {
 
   LoadCell.begin();
   //LoadCell.setReverseOutput();
-  unsigned long stabilizingtime = 2000; // tare preciscion can be improved by adding a few seconds of stabilizing time
+  unsigned long stabilizingtime = 2000; // tare precision can be improved by adding a few seconds of stabilizing time
   boolean _tare = true; //set this to false if you don't want tare to be performed in the next step
   LoadCell.start(stabilizingtime, _tare);
   if (LoadCell.getTareTimeoutFlag()) {
@@ -64,7 +64,7 @@ void setup() {
   Serial.println(LoadCell.getConversionTime());
   Serial.print("HX711 measured sampling rate HZ: ");
   Serial.println(LoadCell.getSPS());
-  Serial.print("HX711 measured settlingtime ms: ");
+  Serial.print("HX711 measured settling time ms: ");
   Serial.println(LoadCell.getSettlingTime());
   Serial.println("Note that the settling time may increase significantly if you use delay() in your sketch!");
   if (LoadCell.getSPS() < 7) {

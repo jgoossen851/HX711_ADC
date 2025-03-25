@@ -40,7 +40,7 @@ void setup() {
 
   LoadCell.begin();
   //LoadCell.setReverseOutput(); //uncomment to turn a negative output value to positive
-  unsigned long stabilizingtime = 2000; // preciscion right after power-up can be improved by adding a few seconds of stabilizing time
+  unsigned long stabilizingtime = 2000; // precision right after power-up can be improved by adding a few seconds of stabilizing time
   boolean _tare = true; //set this to false if you don't want tare to be performed in the next step
   LoadCell.start(stabilizingtime, _tare);
   if (LoadCell.getTareTimeoutFlag() || LoadCell.getSignalTimeoutFlag()) {
@@ -133,7 +133,7 @@ void calibrate() {
   Serial.print("New calibration value has been set to: ");
   Serial.print(newCalibrationValue);
   Serial.println(", use this as calibration value (calFactor) in your project sketch.");
-  Serial.print("Save this value to EEPROM adress ");
+  Serial.print("Save this value to EEPROM address ");
   Serial.print(calVal_eepromAdress);
   Serial.println("? y/n");
 
@@ -191,7 +191,7 @@ void changeSavedCalFactor() {
     }
   }
   _resume = false;
-  Serial.print("Save this value to EEPROM adress ");
+  Serial.print("Save this value to EEPROM address ");
   Serial.print(calVal_eepromAdress);
   Serial.println("? y/n");
   while (_resume == false) {
