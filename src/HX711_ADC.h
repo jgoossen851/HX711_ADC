@@ -19,7 +19,7 @@ Note: HX711_ADC configuration values has been moved to file config.h
 #define DATA_SET 	SAMPLES + IGN_HIGH_SAMPLE + IGN_LOW_SAMPLE // total samples in memory
 
 #if (SAMPLES  != 1) & (SAMPLES  != 2) & (SAMPLES  != 4) & (SAMPLES  != 8) & (SAMPLES  != 16) & (SAMPLES  != 32) & (SAMPLES  != 64) & (SAMPLES  != 128)
-	#error "number of SAMPLES not valid!"
+	#error "number of SAMPLES must be a power of 2 less than or equal to 128!"
 #endif
 
 #if 		(SAMPLES == 1)
@@ -40,7 +40,8 @@ Note: HX711_ADC configuration values has been moved to file config.h
 #define 	DIVB 7
 #endif
 
-#define SIGNAL_TIMEOUT	100
+#define SIGNAL_TIMEOUT			100  // Time in milliseconds to wait for dout pin to go low after a new conversion
+#define MIN_SETTLING_TIME_10SPS	400  // 400 milliseconds is the minimum settling time for the HX711 at 10SPS
 
 class HX711_ADC
 {	

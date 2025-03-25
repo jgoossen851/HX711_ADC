@@ -10,11 +10,8 @@
 #include "HX711_ADC.h"
 
 
-HX711_ADC::HX711_ADC(uint8_t dout, uint8_t sck) //constructor
-{ 	
-	doutPin = dout;
-	sckPin = sck;
-} 
+HX711_ADC::HX711_ADC(uint8_t dout, uint8_t sck)
+		: doutPin(dout), sckPin(sck) {};
 
 void HX711_ADC::setGain(uint8_t gain)  //value should be 32, 64 or 128*
 {
@@ -33,11 +30,11 @@ void HX711_ADC::begin(uint8_t gain)
 }
 
 /*  start(t, dotare) with selectable tare:
-*	will do conversions continuously for 't' +400 milliseconds (400ms is min. settling time at 10SPS). 
+*	will do conversions continuously for 't' milliseconds + the minimum settling time.
 *   Running this for 1-5s in setup() - before tare() seems to improve the tare accuracy. */
 void HX711_ADC::start(unsigned long t, bool dotare)
 {
-	t += 400;
+	t += MIN_SETTLING_TIME_10SPS;
 	lastDoutLowTime = millis();
 	while(millis() < t) 
 	{
@@ -53,7 +50,7 @@ void HX711_ADC::start(unsigned long t, bool dotare)
 
 /*  startMultiple(t, dotare) with selectable tare: 
 *	use this if you have more than one load cell and you want to (do tare and) stabilization simultaneously.
-*	Will do conversions continuously for 't' +400 milliseconds (400ms is min. settling time at 10SPS). 
+*	Will do conversions continuously for 't' milliseconds + the minimum settling time.
 *   Running this for 1-5s in setup() - before tare() seems to improve the tare accuracy */
 int HX711_ADC::startMultiple(unsigned long t, bool dotare)
 {
@@ -62,9 +59,9 @@ int HX711_ADC::startMultiple(unsigned long t, bool dotare)
 	if(startStatus == 0) {
 		if(isFirst) {
 			startMultipleTimeStamp = millis();
-			if (t < 400) 
+			if (t < MIN_SETTLING_TIME_10SPS)
 			{
-				startMultipleWaitTime = t + 400; //min time for HX711 to be stable
+				startMultipleWaitTime = t + MIN_SETTLING_TIME_10SPS;
 			} 
 			else 
 			{
