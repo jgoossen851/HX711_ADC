@@ -52,12 +52,9 @@ class HX711_ADC
 	public:
 		HX711_ADC(uint8_t dout, uint8_t sck); 		//constructor
 		void setGain(uint8_t gain = 128); 			//value must be 32, 64 or 128*
-		void begin();								//set pinMode, HX711 gain and power up the HX711
-		void begin(uint8_t gain);					//set pinMode, HX711 selected gain and power up the HX711
-		void start(unsigned long t); 					//start HX711 and do tare 
-		void start(unsigned long t, bool dotare);		//start HX711, do tare if selected
-		int startMultiple(unsigned long t); 			//start and do tare, multiple HX711 simultaneously
-		int startMultiple(unsigned long t, bool dotare);	//start and do tare if selected, multiple HX711 simultaneously
+		void begin(uint8_t gain = 128);				//set pinMode, HX711 selected gain and power up the HX711
+		void start(unsigned long t, bool dotare = true);		//start HX711, do tare if selected
+		int startMultiple(unsigned long t, bool dotare = true);	//start and do tare if selected, multiple HX711 simultaneously
 		void tare(); 								//zero the scale, wait for tare to finish (blocking)
 		void tareNoDelay(); 						//zero the scale, initiate the tare operation to run in the background (non-blocking)
 		bool getTareStatus();						//returns 'true' if tareNoDelay() operation is complete

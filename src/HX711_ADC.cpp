@@ -23,15 +23,6 @@ void HX711_ADC::setGain(uint8_t gain)  //value should be 32, 64 or 128*
 	else GAIN = 1; //128, channel A
 }
 
-//set pinMode, HX711 gain and power up the HX711
-void HX711_ADC::begin()
-{
-	pinMode(sckPin, OUTPUT);
-	pinMode(doutPin, INPUT);
-	setGain(128);
-	powerUp();
-}
-
 //set pinMode, HX711 selected gain and power up the HX711
 void HX711_ADC::begin(uint8_t gain)
 {
@@ -40,22 +31,6 @@ void HX711_ADC::begin(uint8_t gain)
 	setGain(gain);
 	powerUp();
 }
-
-/*  start(t): 
-*	will do conversions continuously for 't' +400 milliseconds (400ms is min. settling time at 10SPS). 
-*   Running this for 1-5s in setup() - before tare() seems to improve the tare accuracy */
-void HX711_ADC::start(unsigned long t)
-{
-	t += 400;
-	lastDoutLowTime = millis();
-	while(millis() < t) 
-	{
-		update();
-		yield();
-	}
-	tare();
-	tareStatus = 0;
-}	
 
 /*  start(t, dotare) with selectable tare:
 *	will do conversions continuously for 't' +400 milliseconds (400ms is min. settling time at 10SPS). 
@@ -74,54 +49,6 @@ void HX711_ADC::start(unsigned long t, bool dotare)
 		tare();
 		tareStatus = 0;
 	}
-}	
-
-/*  startMultiple(t): use this if you have more than one load cell and you want to do tare and stabilization simultaneously.
-*	Will do conversions continuously for 't' +400 milliseconds (400ms is min. settling time at 10SPS). 
-*   Running this for 1-5s in setup() - before tare() seems to improve the tare accuracy */
-int HX711_ADC::startMultiple(unsigned long t)
-{
-	tareTimeoutFlag = 0;
-	lastDoutLowTime = millis();
-	if(startStatus == 0) {
-		if(isFirst) {
-			startMultipleTimeStamp = millis();
-			if (t < 400) 
-			{
-				startMultipleWaitTime = t + 400; //min time for HX711 to be stable
-			} 
-			else 
-			{
-				startMultipleWaitTime = t;
-			}
-			isFirst = 0;
-		}	
-		if((millis() - startMultipleTimeStamp) < startMultipleWaitTime) {
-			update(); //do conversions during stabilization time
-			yield();
-			return 0;
-		}
-		else { //do tare after stabilization time is up
-			static unsigned long timeout = millis() + tareTimeOut;
-			doTare = 1;
-			update();
-			if(convRslt == 2) 
-			{	
-				doTare = 0;
-				convRslt = 0;
-				startStatus = 1;
-			}
-			if (!tareTimeoutDisable) 
-			{
-				if (millis() > timeout) 
-				{ 
-				tareTimeoutFlag = 1;
-				return 1; // Prevent endless loop if no HX711 is connected
-				}
-			}
-		}
-	}
-	return startStatus;
 }
 
 /*  startMultiple(t, dotare) with selectable tare: 
